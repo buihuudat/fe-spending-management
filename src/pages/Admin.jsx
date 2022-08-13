@@ -64,7 +64,7 @@ export default function Admin() {
       dispatch(setAU(data));
     }
     getAllDataUser()
-  }, [dispatch, loading])
+  }, [dispatch, loading, adminState])
 
   const data = {
     _id: dataSelected._id,

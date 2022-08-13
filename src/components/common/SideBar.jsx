@@ -8,6 +8,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 import SwitchDarkMode from './SwitchDarkmode';
 import Calendar from './Calendar';
@@ -40,6 +41,12 @@ const SideBar = () => {
     text: 'Statistics',
     icon: StackedLineChartIcon,
     link: '/statistics',
+    show: true
+  },
+  {
+    text: 'Support',
+    icon: SupportAgentIcon,
+    link: '/support',
     show: true
   }];
 

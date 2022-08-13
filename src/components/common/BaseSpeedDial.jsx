@@ -19,7 +19,7 @@ export default function BaseSpeedDial () {
   
   return (
     <Box sx={location === 'profile' ? {display: 'none'} : { 
-      position: 'absolute', 
+      position: 'fixed', 
       zIndex: 100, 
       bottom: 30,
       right: 0, 

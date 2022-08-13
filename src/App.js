@@ -24,6 +24,7 @@ import Dashboard from './pages/Dashboard';
 import Statistics from './pages/Statistics';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
+import Support from './pages/Support';
 
 const App = () => {
   const darkmode = useSelector(state => state.modal.darkmode);
@@ -44,6 +45,7 @@ const App = () => {
             <Route path='/' index element={<Home />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='statistics' element={<Statistics />} />
+            <Route path='support' element={<Support />} />
             <Route path='profile/:UID' element={<Profile />} />
             <Route path='admin' element={<Admin />} />
           </Route>
