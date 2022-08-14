@@ -29,6 +29,7 @@ const AuthLayout = () => {
       <Container 
         component='main' 
         maxWidth='xs'
+        sx={{paddingTop: '60px'}}
       >
         <Box sx={{
           marginTop: 8,
