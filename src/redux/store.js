@@ -9,6 +9,8 @@ const persistConfig = {
   storage,
 }
 
+// console.log(storage.getItem)
+
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = createStore(persistedReducer);

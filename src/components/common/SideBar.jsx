@@ -1,8 +1,9 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import storage from 'redux-persist/lib/storage';
 
-import { Avatar, AppBar, Box, Drawer, ListItemButton, ListItemIcon, List, ListItemText, Toolbar, Typography, Divider, Button } from '@mui/material';
+import { Avatar, AppBar, Box, Drawer, ListItemButton, ListItemIcon, List, ListItemText, Toolbar, Typography, Divider } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
@@ -53,6 +54,7 @@ const SideBar = () => {
   const user = useSelector(state => state.user.value);
   
   const handleLogout = () => {
+    storage.removeItem('persist:root')
     localStorage.removeItem('token');
     dispatch(setAdmin(false));
     navigate('/login');
@@ -71,7 +73,6 @@ const SideBar = () => {
             fontWeight={600}
             component={Link}
             to='/'
-            sx={{"&:hover": {color: '#00A7D8'}}}
           >Spending</Typography>
           <Typography
             variant='h4'
@@ -110,7 +111,7 @@ const SideBar = () => {
             sx={{
             textDecoration: 'none',
             fontWeight: 600,
-            fontSize: '1.3rem'
+            fontSize: '1.3rem',
           }}>{user.fullname}
           </Box>
         </Box>

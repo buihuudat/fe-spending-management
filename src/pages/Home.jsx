@@ -7,7 +7,7 @@ import {toast} from 'react-toastify';
 import targetsApi from '../api/targetsApi';
 import { setTargets } from '../redux/reducers/statictiscRedux';
 
-import { Box, Grid, Card, TextField, Input, Button, Modal, Fade } from '@mui/material';
+import { Box, Grid, Card, TextField, Button, Modal, Fade } from '@mui/material';
 import Chart from "react-apexcharts";
 import { Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -41,7 +41,7 @@ const Home = () => {
       dispatch(setTargets(targets))
     };
     getTargets();
-  }, [dispatch, mCal])
+  }, [dispatch, mCal, user])
 
   // noti toast
   const toastNoti = (type, msg) => {
@@ -54,10 +54,10 @@ const Home = () => {
   const getLastDay = (m, y) => new Date(y,m,0).getDate();
 
   // get targets of month
-  const getTargets = (m) => {
+  function getTargets(m) {
     let target = 0;
     targetsState.map(value => {
-      if (value.month == m) {
+      if (value.month === m) {
         target = value.targets;
       }
     })
@@ -100,7 +100,7 @@ const Home = () => {
     const date = new Date();
     const m = mCal!==undefined?mCal : month || date.getMonth() + 1;
     const y = yCal!==undefined?yCal : year || date.getFullYear();
-    const dataFind = _.filter(statistics, ({date}) => '0'+moment(date).format('M') == m && moment(date).format('Y') == y )
+    const dataFind = _.filter(statistics, ({date}) => '0'+moment(date).format('M') === m && moment(date).format('Y') === y )
     const spend = _.filter(dataFind, {actions: 'Spend', status: status?status:'Done'})
     const collect = _.filter(dataFind, {actions: 'Collect', status: status?status:'Done'})
     return {
@@ -239,21 +239,21 @@ const Home = () => {
     const targetsInDay = Math.floor(getTargets(moment(mCal).format('M'))/getLastDay(mCal, yCal));
     // spending
     dataCountChartSpend.forEach((e) => {
-      if (e.date == i) {
+      if (e.date === i) {
         moneySpend = e.amountOfMoney;
         return moneySpend
       }
     })
     // collect
     dataCountChartCollect.forEach((e) => {
-      if (e.date == i) {
+      if (e.date === i) {
         moneyCollect = e.amountOfMoney;
         return moneyCollect
       }
     })
     // overtarget
     dataCountChartSpend.forEach((e) => {
-      if (e.date == i) {
+      if (e.date === i) {
         overtarget = e.amountOfMoney > targetsInDay ? -(targetsInDay - e.amountOfMoney) : 0;
         overtarget = roundUp(overtarget, -3)
         return overtarget
@@ -290,7 +290,7 @@ const Home = () => {
   // handle press esc key
   document.onkeydown = function(evt) {
     evt = evt || window.event;
-    if (evt == 27) {
+    if (evt === 27) {
       setOpen(true)
     }
   };  

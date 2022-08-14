@@ -118,7 +118,7 @@ export default function Support() {
       p={2}
       maxWidth='xs'
       align='center'
-    >Spending app được thiết kế và xây dựng bởi <Link target={'_blank'} underline={'none'} href='https://facebook.com/1150694301'><b>Bui Huu Dat</b></Link> (me 🥲).
+    >Spending app được thiết kế và xây dựng bởi <Link target={'_blank'} underline={'none'} href='https://facebook.com/1150694301'><b>Bui Huu Dat</b></Link>.
       <br/> Tôi luôn lo sợ một ngày nào đó file thống kê chi tiêu của tôi không cánh mà bay 😢. 
       Nên tôi quyết định tạo ra một con app có thể thống kê chi tiêu là lưu dữ liệu của tôi trực tuyến.
       Được thiết kế dựa trên file thống kê chi tiêu của tôi đã tạo nên sẽ có đầy chức năng mà file gốc có (có thể không giống hoàn toàn 😁😁.<br/>
