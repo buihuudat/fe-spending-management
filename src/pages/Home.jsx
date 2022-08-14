@@ -277,7 +277,6 @@ const Home = () => {
       toastNoti('error', 'Invalid amount');
       return
     }
-    console.log({UID: user, targets: {month: moment(mCal).format('M'), targets: target} })
 
     try {
       const {targets} = await targetsApi.get({UID: user, targets: {month: moment(mCal).format('M'), targets: target} });

@@ -42,7 +42,6 @@ const AppLayout = () => {
         }
         // get statistics & targets data
         const data = await statisticsApi.getAll({ user: user._id });
-        console.log(data)
         const {targets} = await targetsApi.get({UID: user._id, targets: {month: moment(new Date()).format('M')} });
         if (!data) return;
         dispatch(setStatistics(data));
