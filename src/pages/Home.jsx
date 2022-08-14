@@ -26,7 +26,8 @@ const Home = () => {
   
   const dispatch = useDispatch();
 
-  const { statistics, user } = useSelector(state => state.statistics.data);
+  const user = useSelector(state => state.user.value)._id;
+  const { statistics } = useSelector(state => state.statistics.data);
   const calendarDate = useSelector(state => state.calendar.date);
   const targetsState = useSelector(state => state.statistics.targets);
   
@@ -276,6 +277,7 @@ const Home = () => {
       toastNoti('error', 'Invalid amount');
       return
     }
+    console.log({UID: user, targets: {month: moment(mCal).format('M'), targets: target} })
 
     try {
       const {targets} = await targetsApi.get({UID: user, targets: {month: moment(mCal).format('M'), targets: target} });
