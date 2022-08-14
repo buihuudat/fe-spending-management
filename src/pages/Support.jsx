@@ -100,6 +100,7 @@ const StyledTreeItem = styled((props) => (
 }));
 
 export default function Support() {
+  document.title('Support | Spending App')
   return (
    <Box sx={{
       display: 'flex', 
