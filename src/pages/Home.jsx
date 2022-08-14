@@ -56,7 +56,7 @@ const Home = () => {
   // get targets of month
   function getTargets(m) {
     let target = 0;
-    targetsState.map(value => {
+    targetsState.forEach(value => {
       if (value.month === m) {
         target = value.targets;
       }
@@ -239,21 +239,21 @@ const Home = () => {
     const targetsInDay = Math.floor(getTargets(moment(mCal).format('M'))/getLastDay(mCal, yCal));
     // spending
     dataCountChartSpend.forEach((e) => {
-      if (e.date === i) {
+      if (parseInt(e.date) === i) {
         moneySpend = e.amountOfMoney;
         return moneySpend
       }
     })
     // collect
     dataCountChartCollect.forEach((e) => {
-      if (e.date === i) {
+      if (parseInt(e.date) === i) {
         moneyCollect = e.amountOfMoney;
         return moneyCollect
       }
     })
     // overtarget
     dataCountChartSpend.forEach((e) => {
-      if (e.date === i) {
+      if (parseInt(e.date) === i) {
         overtarget = e.amountOfMoney > targetsInDay ? -(targetsInDay - e.amountOfMoney) : 0;
         overtarget = roundUp(overtarget, -3)
         return overtarget
@@ -441,7 +441,7 @@ const Home = () => {
             </Card>
           </Grid>
         </Grid>
-        <Chart options={dataLine.options} series={dataLine.series} type="line" height={'500px'} />
+        <Chart options={dataLine.options} series={dataLine.series} type="line" height={'450px'} />
       </Box>
       <Modal
         open={open}

@@ -28,6 +28,7 @@ import { LoadingButton } from '@mui/lab';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 import userApi from '../api/userApi';
+import adminApi from '../api/adminApi';
 
 export default function Admin() {
   document.title = 'Administrator | Spending App';
@@ -45,7 +46,6 @@ export default function Admin() {
 
   const [dataSelected, setDataSelected] = useState([]);
   const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -64,12 +64,12 @@ export default function Admin() {
       dispatch(setAU(data));
     }
     getAllDataUser()
-  }, [dispatch, loading, adminState])
+  }, [dispatch, loading])
 
   const data = {
     _id: dataSelected._id,
     fullname: fullname || dataSelected.fullname, 
-    username: username || dataSelected.username, 
+    username: dataSelected.username, 
     password: password || dataSelected.password, 
     confirmPassword: confirmPassword || dataSelected.password, 
     email: email.toLowerCase() || dataSelected.email,
@@ -230,7 +230,7 @@ export default function Admin() {
       toastNoti('success', 'Edit successfully 👌')
     } catch (error) {
       const errors = error.data.errors;
-      errors.map(e => {
+      errors.forEach(e => {
         if (e.param === 'phone') {
           setPhoneErrText(e.msg);
         }
@@ -251,7 +251,7 @@ export default function Admin() {
     let data = [];
     selected.length? data = selected:data.push(e._id);
     try {
-      await userApi.deleteUser({UID: data, AID: AID });
+      await adminApi.delete({UID: data, AID: AID });
       toastNoti('success', 'Deleted successfully!!!');
       setLoading(false);
       setSelected([]);

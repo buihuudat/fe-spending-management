@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import moment from 'moment';
 
@@ -51,7 +51,7 @@ const AppLayout = () => {
       }
     }
     checkAuth();
-  }, [navigate])
+  }, [navigate, path, dispatch])
 
   return (
     loading ? (
@@ -59,7 +59,6 @@ const AppLayout = () => {
     ) : (
       <Box sx={{
         display: 'flex',
-        paddingTop: '60px',
       }}>
         <SideBar />
         <BaseSpeedDial/>
