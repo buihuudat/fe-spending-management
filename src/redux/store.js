@@ -7,6 +7,7 @@ import reducers from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['admin', 'user', 'statistics'],
 }
 
 // console.log(storage.getItem)
