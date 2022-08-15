@@ -42,7 +42,7 @@ const AppLayout = () => {
         }
         // get statistics & targets data
         const data = await statisticsApi.getAll({ user: user._id });
-        const {targets} = await targetsApi.get({UID: user._id, targets: {month: moment(new Date()).format('M')} });
+        const {targets} = await targetsApi.get({user: user._id, targets: {month: moment(new Date()).format('M')} });
         if (!data) return;
         dispatch(setStatistics(data));
         dispatch(setTargets(targets));

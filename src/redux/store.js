@@ -10,8 +10,6 @@ const persistConfig = {
   blacklist: ['admin', 'user', 'statistics'],
 }
 
-// console.log(storage.getItem)
-
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = createStore(persistedReducer);

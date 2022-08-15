@@ -279,7 +279,7 @@ const Home = () => {
     }
 
     try {
-      const {targets} = await targetsApi.get({UID: user, targets: {month: moment(mCal).format('M'), targets: target} });
+      const {targets} = await targetsApi.get({user: user, targets: {month: moment(mCal).format('M'), targets: target} });
       dispatch(setTargets(targets));
       setOpen(false);
       setLoading(false);
