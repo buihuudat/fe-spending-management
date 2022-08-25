@@ -29,7 +29,7 @@ import Support from './pages/Support';
 const App = () => {
   const darkmode = useSelector(state => state.modal.darkmode);
   const theme = createTheme({
-    palette: { mode: darkmode ? 'light' : 'dark' }
+    palette: { mode: darkmode ? 'dark' : 'light' }
   })
   return (
     <ThemeProvider theme={theme}>

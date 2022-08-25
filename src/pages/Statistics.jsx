@@ -20,8 +20,6 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -37,8 +35,8 @@ export default function EnhancedTable() {
   document.title = 'Statistics | Spending App';
 
   const dispatch = useDispatch();
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('name');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('date');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [disable, setDisable] = useState(true);
@@ -48,9 +46,9 @@ export default function EnhancedTable() {
   const [dataSelected, setDataSelected] = useState([]);
   const [date, setDate] = useState('');
   const [name, setName] = useState('');
-  const [actions, setActions] = useState('');
+  const [actions, setActions] = useState();
   const [money, setMoney] = useState(0);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState();
 
   const [dateErrText, setDateErrText] = useState('');
   const [nameErrText, setNameErrText] = useState('');
@@ -79,10 +77,10 @@ export default function EnhancedTable() {
     statisticsState.statistics.forEach(data => rows.push(data))
   }
 
-  const currencyFormat = (m) => new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND'
-  }).format(m)
+  // const currencyFormat = (m) => new Intl.NumberFormat('vi-VN', {
+  //   style: 'currency',
+  //   currency: 'VND'
+  // }).format(m)
 
 
   const toastNoti = (type, msg) => {
@@ -211,8 +209,22 @@ export default function EnhancedTable() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let err = false
+    console.log(data)
+    if (data.name === '') {
+      err = true
+      setNameErrText('Please fill this field');
+    }
+    if (data.amountOfMoney === '') {
+      err = true
+      setMoneyErrText('Please fill this field');
+    }
+    if (data.amountOfMoney < 500) {
+      err = true
+      setMoneyErrText('Invalid current')
+    }
+    if (err) return
     setLoading(true);
-
     try {
       await statisticsApi.update({user: statisticsState.user, statistics: data});
       setNameErrText('');
@@ -223,7 +235,7 @@ export default function EnhancedTable() {
       toastNoti('success', 'Edit successfully 👌')
     } catch (error) {
       const errors = error.data.errors;
-      errors.map(e => {
+      errors.forEach(e => {
         if (e.param === 'date') {
           setDateErrText(e.msg);
         }
@@ -250,9 +262,15 @@ export default function EnhancedTable() {
       toastNoti('error', 'Ohshit - Has been error!😢');
     }
   }
-  const handleEdit = () => {
-    setDisable(!disable);
+  const handleEdit = (row) => {
+    setSelected([row._id])
+    setDataSelected(row)
+    setDisable(false);
     setLoading(false);
+  }
+  const handleCancel = () => {
+    setSelected([])
+    setDisable(!disable);
   }
 
   const EnhancedTableToolbar = (props) => {
@@ -291,11 +309,6 @@ export default function EnhancedTable() {
 
         {numSelected > 0 ? (
           <Box sx={{display: 'flex', gap: '1rem'}}>
-            <Tooltip title={disable ? 'Edit' : 'Cancel'} sx={numSelected > 1 ? {display: 'none'} : {}}>
-              <IconButton onClick={handleEdit}>
-                {disable ? <EditIcon color='warning' /> : <DoDisturbOnIcon color='secondary' />}
-              </IconButton>
-            </Tooltip>
             <Tooltip title="Delete">
               <IconButton onClick={handleDelete}>
                 <DeleteIcon color='error' />
@@ -458,7 +471,7 @@ export default function EnhancedTable() {
                           sx={{
                             width: '120px' 
                           }}
-                          value={row.actions}
+                          defaultValue={actions ?? row.actions}
                         >
                           <MenuItem value={'Spend'}>Spend</MenuItem>
                           <MenuItem value={'Collect'}>Collect</MenuItem>
@@ -488,11 +501,20 @@ export default function EnhancedTable() {
                           sx={{
                             width: '100px' , marginRight: '2rem'
                           }}
-                          value={row.status}
+                          defaultValue={row.status}
                         >
                           <MenuItem value={'Done'}>Done</MenuItem>
                           <MenuItem value={'Slacking'}>Slacking</MenuItem>
                         </Select>
+                        <Tooltip title={!isItemSelected || disable ? 'Edit' : 'Cancel'}>
+                        {!isItemSelected || disable ? 
+                          <IconButton onClick={() => handleEdit(row)}>
+                            <EditIcon color='warning' />
+                          </IconButton> :
+                          <IconButton onClick={() => handleCancel(row)}>
+                            <DoDisturbOnIcon color='secondary' />
+                          </IconButton>}
+                        </Tooltip>
                         <LoadingButton
                           sx={disable || !isItemSelected || selected.length > 1 ? {display: 'none'}:{width: 'max-content', position: 'absolute'}}
                           fullWidth

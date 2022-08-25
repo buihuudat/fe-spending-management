@@ -55,17 +55,17 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function SwitchDarkMode() {
-  const [checked, setChecked] = React.useState(true);
   const dispatch = useDispatch();
   const darkmode = useSelector(state => state.modal.darkmode);
+  const [checked, setChecked] = React.useState(darkmode);
   
   const handleCheck = () => {
     setChecked(!checked);
-    dispatch(setDarkmode(checked));
+    dispatch(setDarkmode(!darkmode));
   }
   return (
     <FormControlLabel
-      control={<MaterialUISwitch onChange={handleCheck} checked={!darkmode} />}
+      control={<MaterialUISwitch onChange={handleCheck} checked={checked} />}
       />
   );
 }
