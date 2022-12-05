@@ -1,7 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-const baseUrl = 'https://spedingmanagement.herokuapp.com/api/';
+const baseUrl = 'https://spending-572b.onrender.com/api/';
 // const baseUrl = 'http://localhost:5000/api/';
 const getToken = () => localStorage.getItem('token');
 
